@@ -1,0 +1,22 @@
+{
+  "name": "fbkedit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "fdkcacheedit": "bin/fdkcacheedit.js"
+  },
+  "scripts": {
+    "start": "FDKCACHEEDIT_OUTPUTORG=1 babel-node src/index.js",
+    "build": "babel src/ -d build/ --source-maps",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chai",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
