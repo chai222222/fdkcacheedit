@@ -32,7 +32,7 @@ export default class Base {
   }
 
   _isLimitStr(str) {
-    return str && /^\d+年\d+月|^\d{8}$|^期限なし$/.test(str);
+    return str && /^\d+年\d+月|^\d{8}\D?|^期限なし$/.test(str);
   }
 
   _isLimitIntTitle(zaico) {
@@ -45,6 +45,13 @@ export default class Base {
   _getLimit(zaico) {
     const limitIndex = this._optIndex(zaico, Base.OPTION_NAMES.LIMIT);
     return limitIndex >= 0 && zaico.optional_attributes[limitIndex].value || '';
+  }
+
+  _limitStr2CategoryStr(limit) {
+    let m = limit.match(/^(\d+)年(\d+)月/);
+    if (!m) m = limit.match(/^(\d{4})(\d{2})\d{2}/);
+    if (!m) return limit;
+    return `${m[1]}年${m[2]}月`;
   }
 
   _optIndex(zaico, targetName) {

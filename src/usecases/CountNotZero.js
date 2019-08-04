@@ -7,7 +7,7 @@ export default class CountNotZero extends Base {
 【CountNotZero】
 ★数量＞０、賞味期限消費あり、名前に期限を含まない
 (1) 物品名の先頭に【賞味期限】を追加
-(2) カテゴリを追加（賞味期限の年月）
+(2) カテゴリを追加（賞味期限の年月。YYYYMMDD => YYYY年MM月）
 `;
   }
 
@@ -23,7 +23,7 @@ export default class CountNotZero extends Base {
   editOne(zaico) {
     const limit = this._getLimit(zaico);
     zaico.title = `【${limit}】${zaico.title}`;
-    zaico.category = limit;
+    zaico.category = this._limitStr2CategoryStr(limit);
     return zaico;
   }
 }

@@ -35,7 +35,8 @@ export default class EditAll {
       const editors = this.editors.filter(e => e.isTarget(zaico));
       if (editors.length) {
         console.log(`[${idx+1}/${zaicos.length}] ${zaico.title}`);
-        return editors.reduce((z, e) => e.editOne(z), this._cloneDeepJsonObj(zaico));
+        const nZaico = editors.reduce((z, e) => e.editOne(z), this._cloneDeepJsonObj(zaico));
+        if (!this._equalsDeep(zaico, nZaico)) return nZaico;
       }
       return undefined;
     }).filter(v => v);
@@ -43,6 +44,10 @@ export default class EditAll {
 
   _cloneDeepJsonObj(obj) {
     return JSON.parse(JSON.stringify(obj));
+  }
+
+  _equalsDeep(o1, o2) {
+    return JSON.stringify(o1) === JSON.stringify(o2);
   }
 
   _json2path(targetPath, json) {

@@ -67,9 +67,10 @@ var EditAll = function () {
         });
         if (editors.length) {
           console.log('[' + (idx + 1) + '/' + zaicos.length + '] ' + zaico.title);
-          return editors.reduce(function (z, e) {
+          var nZaico = editors.reduce(function (z, e) {
             return e.editOne(z);
           }, _this._cloneDeepJsonObj(zaico));
+          if (!_this._equalsDeep(zaico, nZaico)) return nZaico;
         }
         return undefined;
       }).filter(function (v) {
@@ -80,6 +81,11 @@ var EditAll = function () {
     key: '_cloneDeepJsonObj',
     value: function _cloneDeepJsonObj(obj) {
       return JSON.parse(JSON.stringify(obj));
+    }
+  }, {
+    key: '_equalsDeep',
+    value: function _equalsDeep(o1, o2) {
+      return JSON.stringify(o1) === JSON.stringify(o2);
     }
   }, {
     key: '_json2path',

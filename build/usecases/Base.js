@@ -51,7 +51,7 @@ var Base = function () {
   }, {
     key: '_isLimitStr',
     value: function _isLimitStr(str) {
-      return str && /^\d+年\d+月|^\d{8}$|^期限なし$/.test(str);
+      return str && /^\d+年\d+月|^\d{8}\D?|^期限なし$/.test(str);
     }
   }, {
     key: '_isLimitIntTitle',
@@ -66,6 +66,14 @@ var Base = function () {
     value: function _getLimit(zaico) {
       var limitIndex = this._optIndex(zaico, Base.OPTION_NAMES.LIMIT);
       return limitIndex >= 0 && zaico.optional_attributes[limitIndex].value || '';
+    }
+  }, {
+    key: '_limitStr2CategoryStr',
+    value: function _limitStr2CategoryStr(limit) {
+      var m = limit.match(/^(\d+)年(\d+)月/);
+      if (!m) m = limit.match(/^(\d{4})(\d{2})\d{2}/);
+      if (!m) return limit;
+      return m[1] + '\u5E74' + m[2] + '\u6708';
     }
   }, {
     key: '_optIndex',
