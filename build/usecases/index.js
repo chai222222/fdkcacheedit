@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Edit = exports.editors = undefined;
+exports.customFactory = exports.Edit = exports.editors = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _Category2Keyword = require('./Category2Keyword');
 
@@ -39,4 +41,19 @@ var Edit = exports.Edit = _EditAll2.default;
 exports.default = new _EditAll2.default(Object.values(editors).map(function (e) {
   return new e();
 }));
+var customFactory = exports.customFactory = function customFactory(names) {
+  return new _EditAll2.default(Object.entries(editors).filter(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 1),
+        k = _ref2[0];
+
+    return names.includes(k);
+  }).map(function (arr) {
+    console.log('# use ' + arr[0] + ' #');return arr;
+  }).map(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+        e = _ref4[1];
+
+    return new e();
+  }));
+};
 //# sourceMappingURL=index.js.map

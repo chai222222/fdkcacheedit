@@ -23,6 +23,9 @@ var EditAll = function () {
     _classCallCheck(this, EditAll);
 
     this.editors = editors;
+    if (!editors.length) {
+      throw new Error('コマンドが指定されていません');
+    }
   }
 
   _createClass(EditAll, [{

@@ -14,3 +14,9 @@ export const editors = {
 export const Edit = EditAll;
 
 export default new EditAll(Object.values(editors).map(e => new e()));
+
+export const customFactory = (names) =>
+  new EditAll(Object.entries(editors)
+    .filter(([k]) => names.includes(k))
+    .map(arr => { console.log(`# use ${arr[0]} #`); return arr; })
+    .map(([,e]) => new e()));

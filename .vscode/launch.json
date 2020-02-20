@@ -17,6 +17,15 @@
             "args": [
               "./cache.json"
             ]
+        }, {
+            "type": "node",
+            "request": "launch",
+            "name": "with command CountMinus",
+            "program": "${workspaceFolder}/build/index.js",
+            "args": [
+              "CountMinus",
+              "./cache.json"
+            ]
         }
     ]
 }

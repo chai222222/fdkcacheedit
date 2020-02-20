@@ -5,6 +5,9 @@ export default class EditAll {
 
   constructor(editors) {
     this.editors = editors;
+    if (!editors.length) {
+      throw new Error('コマンドが指定されていません');
+    }
   }
 
   description() {
