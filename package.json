@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "FDKCACHEEDIT_OUTPUTORG=1 babel-node src/index.js",
+    "wstart": "set FDKCACHEEDIT_OUTPUTORG=1 && babel-node src/index.js",
     "build": "babel src/ -d build/ --source-maps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
