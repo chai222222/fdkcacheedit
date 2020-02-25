@@ -6,6 +6,7 @@ export default class Base {
   static OPTION_NAMES = {
     LIMIT: '賞味期限（消費）',
     KEYWORD: 'キーワード',
+    PLACE_OF_FOODDRIVE: 'フードドライブ場所',
   }
 
   description() {

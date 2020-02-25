@@ -23,6 +23,10 @@ var _CountMinus = require('./CountMinus');
 
 var _CountMinus2 = _interopRequireDefault(_CountMinus);
 
+var _DeleteFoodDrivePlace = require('./DeleteFoodDrivePlace');
+
+var _DeleteFoodDrivePlace2 = _interopRequireDefault(_DeleteFoodDrivePlace);
+
 var _EditAll = require('./EditAll');
 
 var _EditAll2 = _interopRequireDefault(_EditAll);
@@ -33,7 +37,8 @@ var editors = exports.editors = {
   Category2Keyword: _Category2Keyword2.default,
   CountNotZero: _CountNotZero2.default,
   CountZero: _CountZero2.default,
-  CountMinus: _CountMinus2.default
+  CountMinus: _CountMinus2.default,
+  DeleteFoodDrivePlace: _DeleteFoodDrivePlace2.default
 };
 
 var Edit = exports.Edit = _EditAll2.default;

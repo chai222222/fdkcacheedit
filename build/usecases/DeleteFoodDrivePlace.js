@@ -18,42 +18,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var CountZero = function (_Base) {
-  _inherits(CountZero, _Base);
+var DeleteFoodDrivePlace = function (_Base) {
+  _inherits(DeleteFoodDrivePlace, _Base);
 
-  function CountZero() {
-    _classCallCheck(this, CountZero);
+  function DeleteFoodDrivePlace() {
+    _classCallCheck(this, DeleteFoodDrivePlace);
 
-    return _possibleConstructorReturn(this, (CountZero.__proto__ || Object.getPrototypeOf(CountZero)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (DeleteFoodDrivePlace.__proto__ || Object.getPrototypeOf(DeleteFoodDrivePlace)).apply(this, arguments));
   }
 
-  _createClass(CountZero, [{
+  _createClass(DeleteFoodDrivePlace, [{
     key: 'description',
     value: function description() {
-      return '\u3010CountZero\u3011\n\u2605\u6570\u91CF\uFF1C\uFF11\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306E\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u524A\u9664\n(2) \u30AB\u30C6\u30B4\u30EA\u3092\u524A\u9664\n(3) \u8CDE\u5473\u671F\u9650\uFF08\u6D88\u8CBB\uFF09\u306E\u6570\u5B57\u3092\u524A\u9664\n';
+      return '\u3010DeleteFoodDrivePlace\u3011\n\u2605\u30AA\u30D7\u30B7\u30E7\u30F3\u5C5E\u6027\u306E name \u304C "' + _Base3.default.OPTION_NAMES.PLACE_OF_FOODDRIVE + '" \u3067 value \u304C\u6587\u5B57\u5217\u3067\u5B58\u5728\u3059\u308B\u5834\u5408\u3002\n(1) value\u3092 "" \u306B\u3059\u308B\n';
     }
   }, {
     key: 'isTarget',
     value: function isTarget(zaico) {
-      // 数量
-      var quantity = this.toNum(zaico.quantity);
-      if (quantity === undefined) {
-        return false; // 初期導入データなのでスキップ
-      }
-      return quantity < 1;
+      var place = this._optValue(zaico, _Base3.default.OPTION_NAMES.PLACE_OF_FOODDRIVE);
+      return typeof place === 'string' && place.length > 0;
     }
   }, {
     key: 'editOne',
     value: function editOne(zaico) {
-      zaico.title = zaico.title.replace(/^【[^】]+】/, ''); // (1)
-      zaico.category = ''; // (2)
-      this._optSet(zaico, _Base3.default.OPTION_NAMES.LIMIT, ''); // (3)
+      this._optSet(zaico, _Base3.default.OPTION_NAMES.PLACE_OF_FOODDRIVE, '');
       return zaico;
     }
   }]);
 
-  return CountZero;
+  return DeleteFoodDrivePlace;
 }(_Base3.default);
 
-exports.default = CountZero;
-//# sourceMappingURL=CountZero.js.map
+exports.default = DeleteFoodDrivePlace;
+//# sourceMappingURL=DeleteFoodDrivePlace.js.map

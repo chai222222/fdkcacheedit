@@ -5,7 +5,7 @@ export default class CountZero extends Base {
   description() {
     return `\
 【CountZero】
-★数量＜１、名前に期限を含む
+★数量＜１
 (1) 物品名の先頭の【賞味期限】を削除
 (2) カテゴリを削除
 (3) 賞味期限（消費）の数字を削除
@@ -18,7 +18,7 @@ export default class CountZero extends Base {
     if (quantity === undefined) {
       return false; // 初期導入データなのでスキップ
     }
-    return quantity < 1 && this._isLimitIntTitle(zaico);
+    return quantity < 1;
   }
 
   editOne(zaico) {

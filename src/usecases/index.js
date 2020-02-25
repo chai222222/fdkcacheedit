@@ -2,6 +2,7 @@ import Category2Keyword from './Category2Keyword';
 import CountNotZero from './CountNotZero';
 import CountZero from './CountZero';
 import CountMinus from './CountMinus';
+import DeleteFoodDrivePlace from './DeleteFoodDrivePlace';
 import EditAll from './EditAll';
 
 export const editors = {
@@ -9,6 +10,7 @@ export const editors = {
   CountNotZero,
   CountZero,
   CountMinus,
+  DeleteFoodDrivePlace,
 };
 
 export const Edit = EditAll;

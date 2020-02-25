@@ -113,7 +113,8 @@ var Base = function () {
 
 Base.OPTION_NAMES = {
   LIMIT: '賞味期限（消費）',
-  KEYWORD: 'キーワード'
+  KEYWORD: 'キーワード',
+  PLACE_OF_FOODDRIVE: 'フードドライブ場所'
 };
 exports.default = Base;
 //# sourceMappingURL=Base.js.map
