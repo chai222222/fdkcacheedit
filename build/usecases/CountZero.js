@@ -30,7 +30,7 @@ var CountZero = function (_Base) {
   _createClass(CountZero, [{
     key: 'description',
     value: function description() {
-      return '\u3010CountZero\u3011\n\u2605\u6570\u91CF\uFF1C\uFF11\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306E\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u524A\u9664\n(2) \u30AB\u30C6\u30B4\u30EA\u3092\u524A\u9664\n(3) \u8CDE\u5473\u671F\u9650\uFF08\u6D88\u8CBB\uFF09\u306E\u6570\u5B57\u3092\u524A\u9664\n';
+      return '\u3010CountZero\u3011\n\u2605\u6570\u91CF\uFF1C\uFF11 \u3001\u8CDE\u5473\u671F\u9650\u306B20\u3092\u542B\u3080\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306E\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u524A\u9664\n(2) \u30AB\u30C6\u30B4\u30EA\u3092\u524A\u9664\n(3) \u8CDE\u5473\u671F\u9650\uFF08\u6D88\u8CBB\uFF09\u306E\u6570\u5B57\u3092\u524A\u9664\n';
     }
   }, {
     key: 'isTarget',
@@ -40,7 +40,8 @@ var CountZero = function (_Base) {
       if (quantity === undefined) {
         return false; // 初期導入データなのでスキップ
       }
-      return quantity < 1;
+      var limit = this._optValue(zaico, _Base3.default.OPTION_NAMES.LIMIT);
+      return quantity < 1 && typeof limit === 'string' && limit.indexOf('20') >= 0;
     }
   }, {
     key: 'editOne',
