@@ -19,6 +19,10 @@ export default class Base {
   editOne() {
   }
 
+  preEdit() {
+    return Promise.resolve();
+  }
+
   toNum(val) {
     if (typeof val === 'number') return val;
     if (typeof val !== 'string') {

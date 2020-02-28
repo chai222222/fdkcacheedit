@@ -15,6 +15,14 @@ export default class EditAll {
   }
 
   edit(targetPath) {
+    this._preEditAll().then(() => {
+      this._editTarget(targetPath);
+    }).catch(e => {
+      console.log('前処理で失敗しました', JSON.stringify(e, null, 2));
+    });
+  }
+
+  _editTarget(targetPath) {
     const arr = this._path2Json(targetPath);
     if (!Array.isArray(arr)) throw new Error(`ファイル ${targetPath} が配列形式になっていません。`);
     const res = this._editAll(arr);
@@ -31,6 +39,10 @@ export default class EditAll {
     } else {
       console.log('編集したデータはありませんでした');
     }
+  }
+
+  _preEditAll() {
+    return Promise.all(this.editors.map(e => e.preEdit());
   }
 
   _editAll(zaicos) {
