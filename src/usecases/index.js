@@ -3,6 +3,7 @@ import CountNotZero from './CountNotZero';
 import CountZero from './CountZero';
 import CountMinus from './CountMinus';
 import DeleteFoodDrivePlace from './DeleteFoodDrivePlace';
+import CsvEdit from './CsvEdit';
 import EditAll from './EditAll';
 
 export const editors = {
@@ -11,6 +12,7 @@ export const editors = {
   CountZero,
   CountMinus,
   DeleteFoodDrivePlace,
+  CsvEdit,
 };
 
 export const Edit = EditAll;
