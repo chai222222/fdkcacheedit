@@ -42,7 +42,7 @@ export default class EditAll {
   }
 
   _preEditAll() {
-    return Promise.all(this.editors.map(e => e.preEdit());
+    return Promise.all(this.editors.map(e => e.preEdit()));
   }
 
   _editAll(zaicos) {
