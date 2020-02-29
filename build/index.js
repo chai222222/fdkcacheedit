@@ -25,7 +25,7 @@ try {
     }
   }
 } catch (e) {
-  console.log(e.messsage);
+  console.log(e);
   process.exit(1);
 }
 //# sourceMappingURL=index.js.map

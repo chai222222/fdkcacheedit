@@ -15,10 +15,15 @@ export default class EditAll {
   }
 
   edit(targetPath) {
-    this._preEditAll().then(() => {
-      this._editTarget(targetPath);
-    }).catch(e => {
-      console.log('前処理で失敗しました', JSON.stringify(e, null, 2));
+    this._preEditAll().catch(e => {
+      console.log('前処理で失敗しました', e.message);
+      return Promise.reject(e);
+    }).then(() => {
+      try {
+        this._editTarget(targetPath);
+      } catch (e) {
+        console.log(e.message);
+      }
     });
   }
 

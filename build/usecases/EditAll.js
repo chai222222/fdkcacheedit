@@ -40,10 +40,15 @@ var EditAll = function () {
     value: function edit(targetPath) {
       var _this = this;
 
-      this._preEditAll().then(function () {
-        _this._editTarget(targetPath);
-      }).catch(function (e) {
-        console.log('前処理で失敗しました', JSON.stringify(e, null, 2));
+      this._preEditAll().catch(function (e) {
+        console.log('前処理で失敗しました', e.message);
+        return Promise.reject(e);
+      }).then(function () {
+        try {
+          _this._editTarget(targetPath);
+        } catch (e) {
+          console.log(e.message);
+        }
       });
     }
   }, {

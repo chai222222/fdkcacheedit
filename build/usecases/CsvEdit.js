@@ -54,21 +54,29 @@ var CsvEdit = function (_Base) {
     value: function preEdit() {
       var _this2 = this;
 
+      this.initCsvDef();
       return new Promise(function (resolve, reject) {
-        _this2.initCsvDef();
-        _fs2.default.createReadStream('20200227エースコック.csv').pipe(_iconvLite2.default.decodeStream('SJIS')).pipe(_iconvLite2.default.encodeStream('UTF-8')).pipe(_csv2.default.parse()).pipe(_csv2.default.transform(function (record) {
-          if (this.csvHeader) {
-            var ukey = this.getUniquekeyStr(record);
-            this.csvData[ukey] = record;
+        var warn = function warn(s) {
+          console.error('CSV\uFF1ASKIP\uFF1A' + s);
+        };
+        _fs2.default.createReadStream(_this2.csvdef.input).pipe(_iconvLite2.default.decodeStream('SJIS')).pipe(_iconvLite2.default.encodeStream('UTF-8')).pipe(_csv2.default.parse()).pipe(_csv2.default.transform(function (record) {
+          if (_this2.csvHeader) {
+            var ukey = _this2.getUniquekeyStr(record);
+            if (/^:*$/.test(ukey)) {
+              warn('\u30E6\u30CB\u30FC\u30AF\u30AB\u30E9\u30E0\u306B\u30C7\u30FC\u30BF\u304C\u3042\u308A\u307E\u305B\u3093[' + ukey + ']');
+            } else if (_this2.csvData[ukey]) {
+              warn('[' + ukey + ']\u304C\u91CD\u8907\u3057\u3066\u3044\u307E\u3059');
+            } else {
+              _this2.csvData[ukey] = record;
+            }
           } else {
-            this.csvColumns = record;
-            this.csvHeader = record.reduce(function (acc, col, idx) {
+            _this2.csvColumns = record;
+            _this2.csvHeader = record.reduce(function (acc, col, idx) {
               return _extends({}, acc, _defineProperty({}, col, idx));
             }, {});
-            this.csvData = {};
+            _this2.csvData = {};
           }
-          console.log('pipe', record);
-        })).on('end', function () {
+        })).on('finish', function () {
           return resolve();
         }).on('error', function (err) {
           return reject(err);
@@ -95,13 +103,15 @@ var CsvEdit = function (_Base) {
       var err = function err(s) {
         throw new Error('CSV\u5B9A\u7FA9\u30D5\u30A1\u30A4\u30EB\uFF1A' + s);
       };
+      // 簡易チェック。そのうちちゃんとスキーマ定義にしたほうが良い
       if (typeof this.csvdef.input !== 'string') err('inputがStringではありません');
-      if (!_fs2.default.exists(this.csvdef.input)) err('inputファイルが存在しません');
+      if (!_fs2.default.existsSync(this.csvdef.input)) err('input\u30D5\u30A1\u30A4\u30EB(' + this.csvdef.input + ')\u304C\u5B58\u5728\u3057\u307E\u305B\u3093');
       if (_typeof(this.csvdef.mapping) !== 'object') err('mappingがObjectではありません');
       if (!Array.isArray(this.csvdef.uniquekey)) err('uniquekeyがArrayではありません');
       if (!this.csvdef.uniquekey.length) err('uniquekeyの要素がありません');
       if (!Array.isArray(this.csvdef.update)) err('updateがArrayではありません');
       if (!Array.isArray(this.csvdef.delete)) err('deleteがArrayではありません');
+      if (!Array.isArray(this.csvdef.newArrayValue)) err('newArrayValueがArrayではありません');
     }
   }, {
     key: 'zaicoUniquekeyStr',
@@ -124,36 +134,48 @@ var CsvEdit = function (_Base) {
   }, {
     key: 'zaicoValue',
     value: function zaicoValue(zaico, col) {
-      return _jsonpath2.default.query(zaico, this.zaicoPath(col));
+      var typeChecker = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
+        return true;
+      };
+
+      return this.zaicoValueByPath(zaico, this.zaicoPath(col), typeChecker);
+    }
+  }, {
+    key: 'zaicoValueByPath',
+    value: function zaicoValueByPath(zaico, path) {
+      var typeChecker = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
+        return true;
+      };
+
+      var result = _jsonpath2.default.query(zaico, path, 1);
+      return result.length && typeChecker(result[0]) ? result[0] : undefined;
     }
   }, {
     key: 'description',
     value: function description() {
-      return '\u3010CsvEdit\u3011\n\u2605CSV\u30D5\u30A1\u30A4\u30EB\u306E\u30C7\u30FC\u30BF\n(1) \u66F4\u65B0\u30C7\u30FC\u30BF\u304C zaico \u306E\u5024\u3068\u9055\u3046\u5834\u5408\u4E0A\u66F8\u304D\n(2) \u524A\u9664\u6307\u5B9A\u30C7\u30FC\u30BF\u304C\u3042\u308B\u5834\u5408\u3001\u524A\u9664\u7528\u30C7\u30FC\u30BF\u3092\u4F5C\u6210\n';
+      return '\u3010CsvEdit\u3011\n\u2605CSV\u30D5\u30A1\u30A4\u30EB(' + CsvEdit.CSV_DEFINE_FILE + '\u306Einput\u3078\u8A18\u8FF0})\u306E\u30C7\u30FC\u30BF\u3092\u8AAD\u307F\u8FBC\u3093\u3067\u66F4\u65B0\n(1) \u66F4\u65B0\u30C7\u30FC\u30BF\u304C zaico \u306E\u5024\u3068\u9055\u3046\u5834\u5408\u4E0A\u66F8\u304D\n(2) \u524A\u9664\u6307\u5B9A\u30C7\u30FC\u30BF\u304C\u3042\u308B\u5834\u5408\u3001\u524A\u9664\u7528\u30C7\u30FC\u30BF\u3092\u4F5C\u6210\n';
     }
   }, {
     key: 'isUpdateTarget',
-    value: function isUpdateTarget(zaico) {
+    value: function isUpdateTarget(zaico, record) {
       var _this5 = this;
 
       var uperr = function uperr(s) {
         throw new Error('CSV\u5B9A\u7FA9\u30D5\u30A1\u30A4\u30EB(update)\uFF1A' + s);
       };
       return this.csvdef.update.some(function (col) {
-        var key = _this5.zaicoUniquekeyStr(zaico);
-        var record = _this5.csvData[key];
-        if (record === undefined) uperr('csv\u30C7\u30FC\u30BF\u306B\u30AD\u30FC[' + key + ']\u304C\u5B58\u5728\u3057\u307E\u305B\u3093');
         var val = record[_this5.csvHeader[col]];
         var zval = _this5.zaicoValue(zaico, col);
-        if (!zval) return false;
+        if (zval === undefined) return false;
         if (typeof zval === 'number') return parseInt(val, 10) !== zval;
         if (typeof zval === 'string') return val !== zval;
+        if (zval === null) return true; // zaico値が null の場合には文字列として上書きさせる
         return false; // 数値・文字列以外は現状更新させない
       });
     }
   }, {
     key: 'isDeleteTarget',
-    value: function isDeleteTarget(zaico) {
+    value: function isDeleteTarget(zaico, record) {
       var _this6 = this;
 
       var delerr = function delerr(s) {
@@ -163,28 +185,53 @@ var CsvEdit = function (_Base) {
         if (typeof delInfo.column !== 'string') delerr('column\u5B9A\u7FA9\u304C\u4E0D\u6B63\u3067\u3059(column)');
         if (typeof delInfo.regexp !== 'string') delerr('column\u5B9A\u7FA9\u304C\u4E0D\u6B63\u3067\u3059(regexp)');
         var re = new RegExp(delInfo.regexp);
-        var zval = _this6.zaicoValue(zaico, col);
-        return re.test('' + zval);
+        var val = record[_this6.csvHeader[delInfo.column]];
+        return re.test('' + val);
       });
     }
   }, {
     key: 'isTarget',
     value: function isTarget(zaico) {
-      return this.isUpdateTarget(zaico) || this.isDeleteTarget(zaico);
+      var key = this.zaicoUniquekeyStr(zaico);
+      var record = this.csvData[key];
+      if (!record) return false; // zaicoのデータがinputのcsvには存在しない
+      return this.isUpdateTarget(zaico, record) || this.isDeleteTarget(zaico, record);
     }
   }, {
     key: 'editOne',
     value: function editOne(zaico) {
       var _this7 = this;
 
-      if (this.isDeleteTarget(zaico)) {
+      var key = this.zaicoUniquekeyStr(zaico);
+      var record = this.csvData[key];
+      if (!record) return zaico; // zaicoのデータがinputのcsvには存在しない
+      if (this.isDeleteTarget(zaico, record)) {
         return { id: zaico.id };
       }
       // update
       return this.csvdef.update.reduce(function (acc, col) {
-        var v = _this7.csvData[_this7.zaicoUniquekeyStr()][_this7.csvHeader[col]];
+        var v = _this7.csvData[_this7.zaicoUniquekeyStr(zaico)][_this7.csvHeader[col]];
         var zv = _this7.zaicoValue(zaico, col);
-        if (v != zv) _jsonpath2.default.value(acc, _this7.zaicoPath(col), typeof zv === 'number' ? parseInt(v) : v);
+        if (v != zv) {
+          var newVal = typeof zv === 'number' ? parseInt(v) : v;
+          try {
+            _jsonpath2.default.value(acc, _this7.zaicoPath(col), newVal);
+          } catch (e) {
+            // 配列値への設定不可エラーだと思うので、新しい配列を追加するロジックを行う
+            var nav = _this7.csvdef.newArrayValue.find(function (narr) {
+              return narr.columns.includes(col);
+            });
+            if (nav) {
+              // 定義がある
+              var arrayPath = nav.arrayPath,
+                  template = nav.template;
+
+              var arr = _this7.zaicoValueByPath(acc, arrayPath, Array.isArray) || [];
+              arr.push(JSON.parse(template.replace('{key}', col).replace('{value}', newVal)));
+              _jsonpath2.default.value(acc, arrayPath, arr);
+            }
+          }
+        }
         return acc;
       }, zaico);
     }
