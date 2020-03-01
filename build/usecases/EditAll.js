@@ -38,6 +38,22 @@ var EditAll = function () {
   }, {
     key: 'edit',
     value: function edit(targetPath) {
+      var _this = this;
+
+      this._preEditAll().catch(function (e) {
+        console.log('前処理で失敗しました', e.message);
+        return Promise.reject(e);
+      }).then(function () {
+        try {
+          _this._editTarget(targetPath);
+        } catch (e) {
+          console.log(e.message);
+        }
+      });
+    }
+  }, {
+    key: '_editTarget',
+    value: function _editTarget(targetPath) {
       var arr = this._path2Json(targetPath);
       if (!Array.isArray(arr)) throw new Error('\u30D5\u30A1\u30A4\u30EB ' + targetPath + ' \u304C\u914D\u5217\u5F62\u5F0F\u306B\u306A\u3063\u3066\u3044\u307E\u305B\u3093\u3002');
       var res = this._editAll(arr);
@@ -60,20 +76,27 @@ var EditAll = function () {
       }
     }
   }, {
+    key: '_preEditAll',
+    value: function _preEditAll() {
+      return Promise.all(this.editors.map(function (e) {
+        return e.preEdit();
+      }));
+    }
+  }, {
     key: '_editAll',
     value: function _editAll(zaicos) {
-      var _this = this;
+      var _this2 = this;
 
       return zaicos.map(function (zaico, idx) {
-        var editors = _this.editors.filter(function (e) {
+        var editors = _this2.editors.filter(function (e) {
           return e.isTarget(zaico);
         });
         if (editors.length) {
           console.log('[' + (idx + 1) + '/' + zaicos.length + '] ' + zaico.title);
           var nZaico = editors.reduce(function (z, e) {
             return e.editOne(z);
-          }, _this._cloneDeepJsonObj(zaico));
-          if (!_this._equalsDeep(zaico, nZaico)) return nZaico;
+          }, _this2._cloneDeepJsonObj(zaico));
+          if (!_this2._equalsDeep(zaico, nZaico)) return nZaico;
         }
         return undefined;
       }).filter(function (v) {

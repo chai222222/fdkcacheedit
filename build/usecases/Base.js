@@ -35,6 +35,11 @@ var Base = function () {
     key: 'editOne',
     value: function editOne() {}
   }, {
+    key: 'preEdit',
+    value: function preEdit() {
+      return Promise.resolve();
+    }
+  }, {
     key: 'toNum',
     value: function toNum(val) {
       if (typeof val === 'number') return val;

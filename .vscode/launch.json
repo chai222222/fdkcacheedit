@@ -4,6 +4,8 @@
     // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
+
         {
             "type": "node",
             "request": "launch",
@@ -12,7 +14,7 @@
         }, {
             "type": "node",
             "request": "launch",
-            "name": "with cache",
+            "name": "cache",
             "program": "${workspaceFolder}/build/index.js",
             "args": [
               "./cache.json"
@@ -20,10 +22,22 @@
         }, {
             "type": "node",
             "request": "launch",
-            "name": "with command CountMinus",
+            "name": "CountMinus",
             "program": "${workspaceFolder}/build/index.js",
             "args": [
               "CountMinus",
+              "./cache.json"
+            ]
+        }, {
+            "type": "node",
+            "request": "launch",
+            "name": "CsvEdit",
+            "program": "${workspaceFolder}/build/index.js",
+            "env": {
+              "FDKCACHEEDIT_OUTPUTORG": "1"
+            },
+            "args": [
+              "CsvEdit",
               "./cache.json"
             ]
         }
