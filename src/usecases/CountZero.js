@@ -7,8 +7,7 @@ export default class CountZero extends Base {
 【CountZero】
 ★数量＜１ 、賞味期限に20を含む
 (1) 物品名の先頭の【賞味期限】を削除
-(2) カテゴリを削除
-(3) 賞味期限（消費）の数字を削除
+(2) 賞味期限（消費）の数字を削除
 `;
   }
 
@@ -24,8 +23,7 @@ export default class CountZero extends Base {
 
   editOne(zaico) {
     zaico.title = zaico.title.replace(/^【[^】]+】/, ''); // (1)
-    zaico.category = ''; // (2)
-    this._optSet(zaico, Base.OPTION_NAMES.LIMIT, ''); // (3)
+    this._optSet(zaico, Base.OPTION_NAMES.LIMIT, ''); // (2)
     return zaico;
   }
 }

@@ -30,7 +30,7 @@ var CountNotZero = function (_Base) {
   _createClass(CountNotZero, [{
     key: 'description',
     value: function description() {
-      return '\u3010CountNotZero\u3011\n\u2605\u6570\u91CF\uFF1E\uFF10\u3001\u8CDE\u5473\u671F\u9650\u6D88\u8CBB\u3042\u308A\u3001\u540D\u524D\u306B\u671F\u9650\u3092\u542B\u307E\u306A\u3044\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306B\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u8FFD\u52A0\n(2) \u30AB\u30C6\u30B4\u30EA\u3092\u8FFD\u52A0\uFF08\u8CDE\u5473\u671F\u9650\u306E\u5E74\u6708\u3002YYYYMMDD => YYYY\u5E74MM\u6708\uFF09\n';
+      return '\u3010CountNotZero\u3011\n\u2605\u6570\u91CF\uFF1E\uFF10\u3001\u8CDE\u5473\u671F\u9650\u6D88\u8CBB\u3042\u308A\u3001\u540D\u524D\u306B\u671F\u9650\u3092\u542B\u307E\u306A\u3044\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306B\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u8FFD\u52A0\n';
     }
   }, {
     key: 'isTarget',
@@ -46,8 +46,7 @@ var CountNotZero = function (_Base) {
     key: 'editOne',
     value: function editOne(zaico) {
       var limit = this._getLimit(zaico);
-      zaico.title = '\u3010' + limit + '\u3011' + zaico.title;
-      zaico.category = this._limitStr2CategoryStr(limit);
+      zaico.title = '\u3010' + limit + '\u3011' + zaico.title; // (1)
       return zaico;
     }
   }]);
