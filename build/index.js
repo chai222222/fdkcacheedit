@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 try {
   if (process.argv.length <= 2) {
     var cmd = _path2.default.basename(process.argv[1]);
-    console.log('usage: ' + cmd + ' [[CommandNames...] file]');
+    console.log('usage: ' + cmd + ' [[CommandNames...] file]\n');
     _usecases2.default.description();
   } else {
     if (process.argv.length === 3) {

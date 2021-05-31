@@ -31,6 +31,8 @@ var _CsvEdit = require('./CsvEdit');
 
 var _CsvEdit2 = _interopRequireDefault(_CsvEdit);
 
+var _DeleteItems = require('./DeleteItems');
+
 var _EditAll = require('./EditAll');
 
 var _EditAll2 = _interopRequireDefault(_EditAll);
@@ -43,7 +45,9 @@ var editors = exports.editors = {
   CountZero: _CountZero2.default,
   CountMinus: _CountMinus2.default,
   DeleteFoodDrivePlace: _DeleteFoodDrivePlace2.default,
-  CsvEdit: _CsvEdit2.default
+  CsvEdit: _CsvEdit2.default,
+  DeleteNullItems: _DeleteItems.DeleteNullItems,
+  DeleteNullItemsNotUpdated: _DeleteItems.DeleteNullItemsNotUpdated
 };
 
 var Edit = exports.Edit = _EditAll2.default;

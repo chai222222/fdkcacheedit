@@ -4,7 +4,7 @@ import Editor, { customFactory } from './usecases';
 try {
   if (process.argv.length <= 2) {
     const cmd = path.basename(process.argv[1]);
-    console.log(`usage: ${cmd} [[CommandNames...] file]`);
+    console.log(`usage: ${cmd} [[CommandNames...] file]\n`);
     Editor.description();
   } else {
     if (process.argv.length === 3) {

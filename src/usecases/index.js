@@ -4,6 +4,7 @@ import CountZero from './CountZero';
 import CountMinus from './CountMinus';
 import DeleteFoodDrivePlace from './DeleteFoodDrivePlace';
 import CsvEdit from './CsvEdit';
+import { DeleteNullItems, DeleteNullItemsNotUpdated } from './DeleteItems';
 import EditAll from './EditAll';
 
 export const editors = {
@@ -13,6 +14,8 @@ export const editors = {
   CountMinus,
   DeleteFoodDrivePlace,
   CsvEdit,
+  DeleteNullItems,
+  DeleteNullItemsNotUpdated,
 };
 
 export const Edit = EditAll;
