@@ -52,7 +52,7 @@ var DeleteItems = function (_Base) {
     key: 'description',
     value: function description() {
       var descs = this.getDescriptions();
-      return '\u3010DeleteNullItems\u3011\n\u5168\u6761\u4EF6\u306B\u30DE\u30C3\u30C1\u3057\u305F\u30C7\u30FC\u30BF\u306E\u524A\u9664\n' + descs.join('\n') + '\n';
+      return '\u3010' + this.constructor.name + '\u3011\n\u5168\u6761\u4EF6\u306B\u30DE\u30C3\u30C1\u3057\u305F\u30C7\u30FC\u30BF\u306E\u524A\u9664\n' + descs.join('\n') + '\n';
     }
   }, {
     key: 'isTarget',
@@ -67,7 +67,6 @@ var DeleteItems = function (_Base) {
   }, {
     key: 'editOne',
     value: function editOne(zaico) {
-      if (!record) return zaico; // zaicoのデータがinputのcsvには存在しない
       return this.isDeleteTarget(zaico) ? { id: zaico.id } : zaico;
     }
   }]);

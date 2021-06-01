@@ -16,7 +16,7 @@ class DeleteItems extends Base {
   description() {
     const descs = this.getDescriptions();
     return `\
-【DeleteNullItems】
+【${this.constructor.name}】
 全条件にマッチしたデータの削除
 ` + descs.join('\n') + '\n';
   }
@@ -30,7 +30,6 @@ class DeleteItems extends Base {
   }
 
   editOne(zaico) {
-    if (!record) return zaico; // zaicoのデータがinputのcsvには存在しない
     return this.isDeleteTarget(zaico) ? ({ id: zaico.id }) : zaico;
   }
 }
