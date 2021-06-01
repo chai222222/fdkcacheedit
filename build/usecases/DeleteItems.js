@@ -91,7 +91,7 @@ var DeleteNullItems = exports.DeleteNullItems = function (_DeleteItems) {
   }, {
     key: 'isDeleteTarget',
     value: function isDeleteTarget(zaico) {
-      return zaico.quantity === null || _lodash2.default.get(zaico, 'item_image.url', null) === null;
+      return zaico.quantity === null && _lodash2.default.get(zaico, 'item_image.url', null) === null;
     }
   }]);
 

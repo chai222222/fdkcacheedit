@@ -44,7 +44,7 @@ export class DeleteNullItems extends DeleteItems {
   }
 
   isDeleteTarget(zaico) {
-    return zaico.quantity === null || _.get(zaico, 'item_image.url', null) === null;
+    return zaico.quantity === null && _.get(zaico, 'item_image.url', null) === null;
   }
 }
 
