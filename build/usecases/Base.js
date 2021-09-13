@@ -56,7 +56,7 @@ var Base = function () {
   }, {
     key: '_isLimitStr',
     value: function _isLimitStr(str) {
-      return str && /^\d+年\d+月|^\d{8}\D?|^期限なし$/.test(str);
+      return str && /^\d+年\d+月|^\d{4}\/\d{2}\/\d{2}\D?|^\d{8}\D?|^期限なし$/.test(str);
     }
   }, {
     key: '_isLimitIntTitle',
@@ -111,6 +111,25 @@ var Base = function () {
       }
       zaico.optional_attributes.push({ name: targetName, value: value });
     }
+  }, {
+    key: '_setTitleDate',
+    value: function _setTitleDate(zaico, dt) {
+      var nTitle = zaico.title.replace(/^【[^】]+】 */, '');
+      zaico.title = dt ? '\u3010' + this._formatDate(dt) + '\u3011' + nTitle : nTitle;
+    }
+  }, {
+    key: '_toDate',
+    value: function _toDate(dtStr) {
+      var str = dtStr.trim();
+      var dstr = void 0;
+      var fmtIsDate = str.match(/^\d{8}$/) && Date.parse(dstr = str.replace(/^(\d{4})(\d{2})/, '$1/$2/'));
+      return fmtIsDate && new Date(dstr);
+    }
+  }, {
+    key: '_formatDate',
+    value: function _formatDate(dt) {
+      return [dt.getFullYear(), ('00' + (dt.getMonth() + 1)).slice(-2), ('00' + dt.getDate()).slice(-2)].join('/');
+    }
   }]);
 
   return Base;
@@ -118,6 +137,7 @@ var Base = function () {
 
 Base.OPTION_NAMES = {
   LIMIT: '賞味期限（消費）',
+  LIMIT_DATE: '賞味（消費）期限（日付型）',
   KEYWORD: 'キーワード',
   PLACE_OF_FOODDRIVE: 'フードドライブ場所'
 };

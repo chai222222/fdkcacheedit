@@ -1,6 +1,6 @@
 # fdkcacheedit
 
-jangetterで取得した Zaico キャッシュデータを、運用コマンドによって編集し、差分編集ファイル(JSON)を作成するためのコマンド。
+zaicoregisterで取得した Zaico キャッシュデータを、運用コマンドによって編集し、差分編集ファイル(JSON)を作成するためのコマンド。
 
 ## usage
 
@@ -36,12 +36,15 @@ $ fdkcacheedit command1 cache_file<CR>          # １つのケース
 $ fdkcacheedit command1 command2 cache_file<CR> # ２つのケース
 ```
 
-指定されたコマンドのみをキャッシュファイルに適用し、結果差分がでたもののみ edited_cache_file という名前で保存する。
+指定されたコマンドのみをキャッシュファイルに適用し、結果差分がでたもののみ edited_{cache_file} という名前で保存する。
+環境変数 FDKCACHEEDIT_OUTPUTORG=1 をつけて実行すると、編集のかかっていないデータだけを抽出した org_{cache_file} も作成する。
+edit_* と org_* を比較すると修正差分を確認しやすい。
 
 ---
 
 ### usage
 
+```
 usage: fdkcacheedit [[CommandNames...] file]
 
 【Category2Keyword】
@@ -77,8 +80,15 @@ usage: fdkcacheedit [[CommandNames...] file]
 数量(quantity)がnull
 画像(item_image.url)がnull
 
-【DeleteNullItems】
+【DeleteNullItemsNotUpdated】
 全条件にマッチしたデータの削除
 数量(quantity)がnull
 画像(item_image.url)がnull
 作成日時(created_at)と更新日時(updated_at)の値が等価
+
+【CountMinusByExpiryDate】
+★「賞味（消費）期限（日付型）」が空で「賞味期限（消費）」が入っている場合
+(1) 日付を日付型にコピーする(「賞味期限（消費）」=>「賞味（消費）期限（日付型）」)
+(2) 期限が過去であれば数値を０にし、タイトルから削除する
+(3) 日付フォーマットがおかしい場合(8桁数値ではない、日付値としてありえないなど)の場合にはエラーを出す
+```

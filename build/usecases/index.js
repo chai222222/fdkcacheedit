@@ -33,6 +33,10 @@ var _CsvEdit2 = _interopRequireDefault(_CsvEdit);
 
 var _DeleteItems = require('./DeleteItems');
 
+var _CountMinusByExpiryDate = require('./CountMinusByExpiryDate');
+
+var _CountMinusByExpiryDate2 = _interopRequireDefault(_CountMinusByExpiryDate);
+
 var _EditAll = require('./EditAll');
 
 var _EditAll2 = _interopRequireDefault(_EditAll);
@@ -47,7 +51,8 @@ var editors = exports.editors = {
   DeleteFoodDrivePlace: _DeleteFoodDrivePlace2.default,
   CsvEdit: _CsvEdit2.default,
   DeleteNullItems: _DeleteItems.DeleteNullItems,
-  DeleteNullItemsNotUpdated: _DeleteItems.DeleteNullItemsNotUpdated
+  DeleteNullItemsNotUpdated: _DeleteItems.DeleteNullItemsNotUpdated,
+  CountMinusByExpiryDate: _CountMinusByExpiryDate2.default
 };
 
 var Edit = exports.Edit = _EditAll2.default;

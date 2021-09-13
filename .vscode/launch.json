@@ -31,6 +31,15 @@
         }, {
             "type": "node",
             "request": "launch",
+            "name": "CountMinusByExpiryDate",
+            "program": "${workspaceFolder}/build/index.js",
+            "args": [
+              "CountMinusByExpiryDate",
+              "./kuro.json"
+            ]
+        }, {
+            "type": "node",
+            "request": "launch",
             "name": "CsvEdit",
             "program": "${workspaceFolder}/build/index.js",
             "env": {

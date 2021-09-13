@@ -5,6 +5,7 @@ export default class Base {
 
   static OPTION_NAMES = {
     LIMIT: '賞味期限（消費）',
+    LIMIT_DATE: '賞味（消費）期限（日付型）',
     KEYWORD: 'キーワード',
     PLACE_OF_FOODDRIVE: 'フードドライブ場所',
   }
@@ -37,7 +38,7 @@ export default class Base {
   }
 
   _isLimitStr(str) {
-    return str && /^\d+年\d+月|^\d{8}\D?|^期限なし$/.test(str);
+    return str && /^\d+年\d+月|^\d{4}\/\d{2}\/\d{2}\D?|^\d{8}\D?|^期限なし$/.test(str);
   }
 
   _isLimitIntTitle(zaico) {
@@ -81,5 +82,25 @@ export default class Base {
       zaico.optional_attributes = [];
     }
     zaico.optional_attributes.push({ name: targetName, value: value });
+  }
+
+  _setTitleDate(zaico, dt) {
+    const nTitle = zaico.title.replace(/^【[^】]+】 */, '');
+    zaico.title =  dt ? `【${this._formatDate(dt)}】${nTitle}` : nTitle;
+  }
+
+  _toDate(dtStr) {
+    const str = dtStr.trim();
+    let dstr;
+    const fmtIsDate = str.match(/^\d{8}$/) && Date.parse(dstr = str.replace(/^(\d{4})(\d{2})/, '$1/$2/'));
+    return fmtIsDate && new Date(dstr);
+  }
+
+  _formatDate(dt) {
+    return [
+      dt.getFullYear(),
+      ('00' + (dt.getMonth()+1)).slice(-2),
+      ('00' + dt.getDate()).slice(-2)
+    ].join('/');
   }
 }
