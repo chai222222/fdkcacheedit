@@ -40,7 +40,7 @@ var EditAll = function () {
     value: function edit(targetPath) {
       var _this = this;
 
-      this._preEditAll().catch(function (e) {
+      return this._preEditAll(targetPath).catch(function (e) {
         console.log('前処理で失敗しました', e.message);
         return Promise.reject(e);
       }).then(function () {
@@ -77,9 +77,9 @@ var EditAll = function () {
     }
   }, {
     key: '_preEditAll',
-    value: function _preEditAll() {
+    value: function _preEditAll(targetPath) {
       return Promise.all(this.editors.map(function (e) {
-        return e.preEdit();
+        return e.preEdit(targetPath);
       }));
     }
   }, {

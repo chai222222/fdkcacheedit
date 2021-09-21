@@ -84,8 +84,12 @@ export default class Base {
     zaico.optional_attributes.push({ name: targetName, value: value });
   }
 
+  _titleWithoutDate(title) {
+    return title.replace(/^【[^】]+】 */, '');
+  }
+
   _setTitleDate(zaico, dt) {
-    const nTitle = zaico.title.replace(/^【[^】]+】 */, '');
+    const nTitle = this._titleWithoutDate(zaico.title);
     zaico.title =  dt ? `【${this._formatDate(dt)}】${nTitle}` : nTitle;
   }
 
@@ -102,5 +106,10 @@ export default class Base {
       ('00' + (dt.getMonth()+1)).slice(-2),
       ('00' + dt.getDate()).slice(-2)
     ].join('/');
+  }
+
+  _isJan(code) {
+    const janLengthArr = [8, 13]; // JANの長さ定義
+    return (typeof code === 'string') && code.match(/^\d+$/) && janLengthArr.includes(code.length);
   }
 }

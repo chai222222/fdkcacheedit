@@ -37,6 +37,10 @@ var _CountMinusByExpiryDate = require('./CountMinusByExpiryDate');
 
 var _CountMinusByExpiryDate2 = _interopRequireDefault(_CountMinusByExpiryDate);
 
+var _FixedTw = require('./FixedTw');
+
+var _FixedTw2 = _interopRequireDefault(_FixedTw);
+
 var _EditAll = require('./EditAll');
 
 var _EditAll2 = _interopRequireDefault(_EditAll);
@@ -52,7 +56,8 @@ var editors = exports.editors = {
   CsvEdit: _CsvEdit2.default,
   DeleteNullItems: _DeleteItems.DeleteNullItems,
   DeleteNullItemsNotUpdated: _DeleteItems.DeleteNullItemsNotUpdated,
-  CountMinusByExpiryDate: _CountMinusByExpiryDate2.default
+  CountMinusByExpiryDate: _CountMinusByExpiryDate2.default,
+  FixedTw: _FixedTw2.default
 };
 
 var Edit = exports.Edit = _EditAll2.default;

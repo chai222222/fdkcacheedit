@@ -112,9 +112,14 @@ var Base = function () {
       zaico.optional_attributes.push({ name: targetName, value: value });
     }
   }, {
+    key: '_titleWithoutDate',
+    value: function _titleWithoutDate(title) {
+      return title.replace(/^【[^】]+】 */, '');
+    }
+  }, {
     key: '_setTitleDate',
     value: function _setTitleDate(zaico, dt) {
-      var nTitle = zaico.title.replace(/^【[^】]+】 */, '');
+      var nTitle = this._titleWithoutDate(zaico.title);
       zaico.title = dt ? '\u3010' + this._formatDate(dt) + '\u3011' + nTitle : nTitle;
     }
   }, {
@@ -129,6 +134,12 @@ var Base = function () {
     key: '_formatDate',
     value: function _formatDate(dt) {
       return [dt.getFullYear(), ('00' + (dt.getMonth() + 1)).slice(-2), ('00' + dt.getDate()).slice(-2)].join('/');
+    }
+  }, {
+    key: '_isJan',
+    value: function _isJan(code) {
+      var janLengthArr = [8, 13]; // JANの長さ定義
+      return typeof code === 'string' && code.match(/^\d+$/) && janLengthArr.includes(code.length);
     }
   }]);
 

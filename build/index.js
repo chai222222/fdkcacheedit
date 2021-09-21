@@ -16,13 +16,18 @@ try {
     console.log('usage: ' + cmd + ' [[CommandNames...] file]\n');
     _usecases2.default.description();
   } else {
+    var p = void 0;
     if (process.argv.length === 3) {
-      _usecases2.default.edit(process.argv[2]);
+      p = _usecases2.default.edit(process.argv[2]);
     } else {
       var names = process.argv.slice(2, process.argv.length - 1);
       var editor = (0, _usecases.customFactory)(names);
-      editor.edit(process.argv[process.argv.length - 1]);
+      p = editor.edit(process.argv[process.argv.length - 1]);
     }
+    p.catch(function (e) {
+      console.log(e);
+      process.exit(2);
+    });
   }
 } catch (e) {
   console.log(e);

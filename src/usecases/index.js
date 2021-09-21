@@ -6,6 +6,7 @@ import DeleteFoodDrivePlace from './DeleteFoodDrivePlace';
 import CsvEdit from './CsvEdit';
 import { DeleteNullItems, DeleteNullItemsNotUpdated } from './DeleteItems';
 import CountMinusByExpiryDate from './CountMinusByExpiryDate';
+import FixedTw from './FixedTw';
 import EditAll from './EditAll';
 
 export const editors = {
@@ -18,6 +19,7 @@ export const editors = {
   DeleteNullItems,
   DeleteNullItemsNotUpdated,
   CountMinusByExpiryDate,
+  FixedTw,
 };
 
 export const Edit = EditAll;

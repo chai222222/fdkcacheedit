@@ -15,7 +15,7 @@ export default class EditAll {
   }
 
   edit(targetPath) {
-    this._preEditAll().catch(e => {
+    return this._preEditAll(targetPath).catch(e => {
       console.log('前処理で失敗しました', e.message);
       return Promise.reject(e);
     }).then(() => {
@@ -46,8 +46,8 @@ export default class EditAll {
     }
   }
 
-  _preEditAll() {
-    return Promise.all(this.editors.map(e => e.preEdit()));
+  _preEditAll(targetPath) {
+    return Promise.all(this.editors.map(e => e.preEdit(targetPath)));
   }
 
   _editAll(zaicos) {

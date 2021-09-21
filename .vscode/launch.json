@@ -40,6 +40,15 @@
         }, {
             "type": "node",
             "request": "launch",
+            "name": "FixedTw",
+            "program": "${workspaceFolder}/build/index.js",
+            "args": [
+              "FixedTw",
+              "../zaicoregister/zr_cache.json"
+            ]
+        }, {
+            "type": "node",
+            "request": "launch",
             "name": "CsvEdit",
             "program": "${workspaceFolder}/build/index.js",
             "env": {

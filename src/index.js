@@ -7,13 +7,18 @@ try {
     console.log(`usage: ${cmd} [[CommandNames...] file]\n`);
     Editor.description();
   } else {
+    let p;
     if (process.argv.length === 3) {
-      Editor.edit(process.argv[2]);
+      p = Editor.edit(process.argv[2]);
     } else {
       const names = process.argv.slice(2, process.argv.length - 1);
       const editor = customFactory(names);
-      editor.edit(process.argv[process.argv.length - 1]);
+      p = editor.edit(process.argv[process.argv.length - 1]);
     }
+    p.catch((e) => {
+      console.log(e);
+      process.exit(2);
+    });
   }
 } catch (e) {
   console.log(e);
