@@ -49,7 +49,7 @@ export default class Base {
   }
 
   _getLimit(zaico) {
-    const limitIndex = this._optIndex(zaico, Base.OPTION_NAMES.LIMIT);
+    const limitIndex = this._optIndex(zaico, Base.OPTION_NAMES.LIMIT_DATE);
     return limitIndex >= 0 && zaico.optional_attributes[limitIndex].value || '';
   }
 

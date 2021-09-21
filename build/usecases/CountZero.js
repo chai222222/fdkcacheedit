@@ -30,7 +30,7 @@ var CountZero = function (_Base) {
   _createClass(CountZero, [{
     key: 'description',
     value: function description() {
-      return '\u3010CountZero\u3011\n\u2605\u6570\u91CF\uFF1C\uFF11 \u3001\u8CDE\u5473\u671F\u9650\u306B20\u3092\u542B\u3080\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306E\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u524A\u9664\n(2) \u8CDE\u5473\u671F\u9650\uFF08\u6D88\u8CBB\uFF09\u306E\u6570\u5B57\u3092\u524A\u9664\n';
+      return '\u3010CountZero\u3011\n\u2605\u6570\u91CF\uFF1C\uFF11 \u3001\u300C\u8CDE\u5473\uFF08\u6D88\u8CBB\uFF09\u671F\u9650\uFF08\u65E5\u4ED8\u578B\uFF09\u300D\u304C\u5024\u3092\u6301\u3064\u3082\u306E\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306E\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u524A\u9664\n(2) \u8CDE\u5473\u671F\u9650\uFF08\u6D88\u8CBB\uFF09\u306E\u6570\u5B57\u3092\u524A\u9664\n';
     }
   }, {
     key: 'isTarget',
@@ -40,14 +40,14 @@ var CountZero = function (_Base) {
       if (quantity === undefined) {
         return false; // 初期導入データなのでスキップ
       }
-      var limit = this._optValue(zaico, _Base3.default.OPTION_NAMES.LIMIT);
-      return quantity < 1 && typeof limit === 'string' && limit.indexOf('20') >= 0;
+      var limit = this._optValue(zaico, _Base3.default.OPTION_NAMES.LIMIT_DATE);
+      return quantity < 1 && typeof limit === 'string' && limit;
     }
   }, {
     key: 'editOne',
     value: function editOne(zaico) {
-      zaico.title = zaico.title.replace(/^【[^】]+】/, ''); // (1)
-      this._optSet(zaico, _Base3.default.OPTION_NAMES.LIMIT, ''); // (2)
+      zaico.title = this._titleWithoutDate(zaico.title); // (1)
+      this._optSet(zaico, _Base3.default.OPTION_NAMES.LIMIT_DATE, null); // (2)
       return zaico;
     }
   }]);

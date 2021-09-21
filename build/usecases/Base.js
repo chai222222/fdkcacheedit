@@ -69,7 +69,7 @@ var Base = function () {
   }, {
     key: '_getLimit',
     value: function _getLimit(zaico) {
-      var limitIndex = this._optIndex(zaico, Base.OPTION_NAMES.LIMIT);
+      var limitIndex = this._optIndex(zaico, Base.OPTION_NAMES.LIMIT_DATE);
       return limitIndex >= 0 && zaico.optional_attributes[limitIndex].value || '';
     }
   }, {

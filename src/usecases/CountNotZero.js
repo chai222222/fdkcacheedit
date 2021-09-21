@@ -5,7 +5,7 @@ export default class CountNotZero extends Base {
   description() {
     return `\
 【CountNotZero】
-★数量＞０、賞味期限消費あり、名前に期限を含まない
+★数量＞０、「賞味（消費）期限（日付型）」あり、名前に期限を含まない
 (1) 物品名の先頭に【賞味期限】を追加
 `;
   }
