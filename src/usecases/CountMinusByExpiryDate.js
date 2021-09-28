@@ -30,7 +30,7 @@ export default class CountMinusByExpiryDate extends Base {
     const limit = this._optValue(zaico, Base.OPTION_NAMES.LIMIT);
     const limitDate = this._optValue(zaico, Base.OPTION_NAMES.LIMIT_DATE);
     if (limitDate || !limit) return false;
-    if (!this._toDate(limit)) {
+    if (!this._toDateOld(limit)) {
       console.log(`[${zaico.title}] 日付不正(skip) [id:${zaico.id}, code:${zaico.code}]`); // (3)
       return false;
     }
@@ -38,7 +38,7 @@ export default class CountMinusByExpiryDate extends Base {
   }
 
   editOne(zaico) {
-    const d = this._toDate(this._optValue(zaico, Base.OPTION_NAMES.LIMIT))
+    const d = this._toDateOld(this._optValue(zaico, Base.OPTION_NAMES.LIMIT))
     this._optSet(zaico, Base.OPTION_NAMES.LIMIT_DATE, this._formatDate(d));
     // this._optSet(zaico, Base.OPTION_NAMES.LIMIT, '');
     if (d < this._today) {

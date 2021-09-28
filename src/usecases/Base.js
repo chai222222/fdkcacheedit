@@ -3,12 +3,19 @@ import path from 'path';
 
 export default class Base {
 
+  /** optional attributes の name値 */
   static OPTION_NAMES = {
     LIMIT: '賞味期限（消費）',
     LIMIT_DATE: '賞味（消費）期限（日付型）',
     KEYWORD: 'キーワード',
     PLACE_OF_FOODDRIVE: 'フードドライブ場所',
   }
+
+  /** 日時期限なし文字列 */
+  static UNLIMIT_DATE = '期限なし';
+
+  /** 日時フォーマット正規表現 */
+  static DATE_PATTERN = new RegExp(`^(\\d{4})[-/年]?(\\d{2})[-/月]?(\\d{2})?\\D?|^${Base.UNLIMIT_DATE}$`);
 
   description() {
   }
@@ -38,7 +45,7 @@ export default class Base {
   }
 
   _isLimitStr(str) {
-    return str && /^\d+年\d+月|^\d{4}\/\d{2}\/\d{2}\D?|^\d{8}\D?|^期限なし$/.test(str);
+    return str && Base.DATE_PATTERN.test(str);
   }
 
   _isLimitIntTitle(zaico) {
@@ -93,7 +100,24 @@ export default class Base {
     zaico.title =  dt ? `【${this._formatDate(dt)}】${nTitle}` : nTitle;
   }
 
-  _toDate(dtStr) {
+  _toDate(str) {
+    const mArr = Base.DATE_PATTERN.exec(str);
+    if (!Array.isArray(mArr) || mArr.length < 4) return null; // 日時フォーマットに合致しないか期限なし
+    const [ , syear, smonth, sday ] = mArr;
+    const d = new Date(parseInt(syear), parseInt(smonth) - 1, sday === undefined ? 1 : parseInt(sday));
+    if (sday === undefined) { // year, monthのみ
+      d.setMonth(d.getMonth() + 1);
+      d.setDate(d.getDate() - 1);
+    }
+    return d;
+  }
+
+  /**
+   * 旧日時フォーマット（数値８桁）から Date を作成して返します。
+   * @param {String} dtStr 日時文字列
+   * @return {Date|null} フォーマットが正しい場合 Date を返し、それ以外は falthy 値を返します。
+   */
+  _toDateOld(dtStr) {
     const str = dtStr.trim();
     let dstr;
     const fmtIsDate = str.match(/^\d{8}$/) && Date.parse(dstr = str.replace(/^(\d{4})(\d{2})/, '$1/$2/'));
@@ -101,11 +125,13 @@ export default class Base {
   }
 
   _formatDate(dt) {
-    return [
-      dt.getFullYear(),
-      ('00' + (dt.getMonth()+1)).slice(-2),
-      ('00' + dt.getDate()).slice(-2)
-    ].join('/');
+    return dt instanceof Date
+      ? [
+          dt.getFullYear(),
+          ('00' + (dt.getMonth()+1)).slice(-2),
+          ('00' + dt.getDate()).slice(-2)
+        ].join('/')
+      : String(dt);
   }
 
   _isJan(code) {

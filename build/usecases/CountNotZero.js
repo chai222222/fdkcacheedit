@@ -30,7 +30,7 @@ var CountNotZero = function (_Base) {
   _createClass(CountNotZero, [{
     key: 'description',
     value: function description() {
-      return '\u3010CountNotZero\u3011\n\u2605\u6570\u91CF\uFF1E\uFF10\u3001\u300C\u8CDE\u5473\uFF08\u6D88\u8CBB\uFF09\u671F\u9650\uFF08\u65E5\u4ED8\u578B\uFF09\u300D\u3042\u308A\u3001\u540D\u524D\u306B\u671F\u9650\u3092\u542B\u307E\u306A\u3044\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306B\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u8FFD\u52A0\n';
+      return '\u3010CountNotZero\u3011\n\u2605\u6570\u91CF\uFF1E\uFF10\u3001\u300C\u8CDE\u5473\uFF08\u6D88\u8CBB\uFF09\u671F\u9650\uFF08\u65E5\u4ED8\u578B\uFF09\u300D\u3042\u308A\n(1) \u7269\u54C1\u540D\u306E\u5148\u982D\u306E\u300C\u8CDE\u5473\uFF08\u6D88\u8CBB\uFF09\u671F\u9650\uFF08\u65E5\u4ED8\u578B\uFF09\u300D,\u3010\u8CDE\u5473\u671F\u9650\u3011\u3092\u5024\u306E\u6B63\u898F\u5316\u3092\u884C\u3044\u518D\u8A2D\u5B9A(\u671F\u9650\u306A\u3057\u306E\u307F\u6B63\u898F\u5316\u306F\u3057\u306A\u3044)\n=\n\u300C\u8CDE\u5473\uFF08\u6D88\u8CBB\uFF09\u671F\u9650\uFF08\u65E5\u4ED8\u578B\uFF09\u300D\u30D5\u30A9\u30FC\u30DE\u30C3\u30C8\u304C\u304A\u304B\u3057\u3044\u5834\u5408\u306B\u306F\u30A8\u30E9\u30FC\u3092\u51FA\u529B\n\nYYYY\u5E74MM\u6708DD => YYYY/MM/DD\nYYYY/MM/DD   => YYYY/MM/DD\nYYYYMMDD     => YYYY/MM/DD\n\u671F\u9650\u306A\u3057     => \u671F\u9650\u306A\u3057\n\n([\u6708/-])DD\u306E\u7701\u7565\u6642\u306F\u3001\u305D\u306E\u6708\u306E\u4E00\u756A\u6700\u5F8C\u306E\u65E5\u306B\u3059\u308B\n\n';
     }
   }, {
     key: 'isTarget',
@@ -40,13 +40,33 @@ var CountNotZero = function (_Base) {
       if (quantity === undefined) {
         return false; // 初期導入データなのでスキップ
       }
-      return quantity > 0 && this._isLimitStr(this._getLimit(zaico)) && !this._isLimitIntTitle(zaico);
+      var limit = this._getLimit(zaico);
+      if (quantity < 1 || !limit) return false; // (1) skip
+      if (!this._isLimitStr(limit)) {
+        return this._err('フォーマットエラー', zaico, limit);
+      }
+      var d = this._toDate(limit);
+      if (d && d.getTime() < Date.now()) {
+        return this._err('古い期限', zaico, limit);
+      }
+      return true;
+    }
+  }, {
+    key: '_err',
+    value: function _err(msg, zaico, limit) {
+      var id = zaico.id,
+          code = zaico.code,
+          title = zaico.title;
+
+      console.error(_Base3.default.OPTION_NAMES.LIMIT_DATE + ': ' + msg, JSON.stringify({ id: id, code: code, title: title, limit: limit }, null, ''));
+      return false;
     }
   }, {
     key: 'editOne',
     value: function editOne(zaico) {
       var limit = this._getLimit(zaico);
-      zaico.title = '\u3010' + limit + '\u3011' + zaico.title; // (1)
+      var d = this._toDate(limit);
+      this._setTitleDate(zaico, d || _Base3.default.UNLIMIT_DATE);
       return zaico;
     }
   }]);

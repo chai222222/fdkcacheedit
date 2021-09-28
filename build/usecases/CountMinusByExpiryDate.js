@@ -50,7 +50,7 @@ var CountMinusByExpiryDate = function (_Base) {
       var limit = this._optValue(zaico, _Base3.default.OPTION_NAMES.LIMIT);
       var limitDate = this._optValue(zaico, _Base3.default.OPTION_NAMES.LIMIT_DATE);
       if (limitDate || !limit) return false;
-      if (!this._toDate(limit)) {
+      if (!this._toDateOld(limit)) {
         console.log('[' + zaico.title + '] \u65E5\u4ED8\u4E0D\u6B63(skip) [id:' + zaico.id + ', code:' + zaico.code + ']'); // (3)
         return false;
       }
@@ -59,7 +59,7 @@ var CountMinusByExpiryDate = function (_Base) {
   }, {
     key: 'editOne',
     value: function editOne(zaico) {
-      var d = this._toDate(this._optValue(zaico, _Base3.default.OPTION_NAMES.LIMIT));
+      var d = this._toDateOld(this._optValue(zaico, _Base3.default.OPTION_NAMES.LIMIT));
       this._optSet(zaico, _Base3.default.OPTION_NAMES.LIMIT_DATE, this._formatDate(d));
       // this._optSet(zaico, Base.OPTION_NAMES.LIMIT, '');
       if (d < this._today) {

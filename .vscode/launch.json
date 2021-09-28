@@ -40,6 +40,15 @@
         }, {
             "type": "node",
             "request": "launch",
+            "name": "CountNotZero",
+            "program": "${workspaceFolder}/build/index.js",
+            "args": [
+              "CountNotZero",
+              "../zaicoregister/zr_cache.json"
+            ]
+        }, {
+            "type": "node",
+            "request": "launch",
             "name": "FixedTw",
             "program": "${workspaceFolder}/build/index.js",
             "args": [
