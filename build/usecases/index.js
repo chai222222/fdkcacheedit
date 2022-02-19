@@ -37,6 +37,10 @@ var _CountMinusByExpiryDate = require('./CountMinusByExpiryDate');
 
 var _CountMinusByExpiryDate2 = _interopRequireDefault(_CountMinusByExpiryDate);
 
+var _DateNormalize = require('./DateNormalize');
+
+var _DateNormalize2 = _interopRequireDefault(_DateNormalize);
+
 var _FixedTw = require('./FixedTw');
 
 var _FixedTw2 = _interopRequireDefault(_FixedTw);
@@ -57,7 +61,8 @@ var editors = exports.editors = {
   DeleteNullItems: _DeleteItems.DeleteNullItems,
   DeleteNullItemsNotUpdated: _DeleteItems.DeleteNullItemsNotUpdated,
   CountMinusByExpiryDate: _CountMinusByExpiryDate2.default,
-  FixedTw: _FixedTw2.default
+  FixedTw: _FixedTw2.default,
+  DateNormalize: _DateNormalize2.default
 };
 
 var Edit = exports.Edit = _EditAll2.default;
