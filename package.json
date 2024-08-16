@@ -1,6 +1,6 @@
 {
-  "name": "fbkcacheedit",
-  "version": "1.0.12",
+  "name": "fdkcacheedit",
+  "version": "1.0.13",
   "description": "",
   "main": "index.js",
   "bin": {

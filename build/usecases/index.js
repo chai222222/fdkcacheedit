@@ -45,6 +45,10 @@ var _FixedTw = require('./FixedTw');
 
 var _FixedTw2 = _interopRequireDefault(_FixedTw);
 
+var _FixTitle = require('./FixTitle');
+
+var _FixTitle2 = _interopRequireDefault(_FixTitle);
+
 var _EditAll = require('./EditAll');
 
 var _EditAll2 = _interopRequireDefault(_EditAll);
@@ -62,7 +66,8 @@ var editors = exports.editors = {
   DeleteNullItemsNotUpdated: _DeleteItems.DeleteNullItemsNotUpdated,
   CountMinusByExpiryDate: _CountMinusByExpiryDate2.default,
   FixedTw: _FixedTw2.default,
-  DateNormalize: _DateNormalize2.default
+  DateNormalize: _DateNormalize2.default,
+  FixTitle: _FixTitle2.default
 };
 
 var Edit = exports.Edit = _EditAll2.default;

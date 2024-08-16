@@ -10,12 +10,14 @@
             "type": "node",
             "request": "launch",
             "name": "no param",
-            "program": "${workspaceFolder}/build/index.js"
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js"
         }, {
             "type": "node",
             "request": "launch",
             "name": "cache",
-            "program": "${workspaceFolder}/build/index.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js",
             "args": [
               "./cache.json"
             ]
@@ -23,7 +25,8 @@
             "type": "node",
             "request": "launch",
             "name": "CountMinus",
-            "program": "${workspaceFolder}/build/index.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js",
             "args": [
               "CountMinus",
               "./cache.json"
@@ -32,7 +35,8 @@
             "type": "node",
             "request": "launch",
             "name": "CountMinusByExpiryDate",
-            "program": "${workspaceFolder}/build/index.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js",
             "args": [
               "CountMinusByExpiryDate",
               "./kuro.json"
@@ -41,7 +45,8 @@
             "type": "node",
             "request": "launch",
             "name": "CountNotZero",
-            "program": "${workspaceFolder}/build/index.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js",
             "args": [
               "CountNotZero",
               "../zaicoregister/zr_cache.json"
@@ -50,7 +55,8 @@
             "type": "node",
             "request": "launch",
             "name": "FixedTw",
-            "program": "${workspaceFolder}/build/index.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js",
             "args": [
               "FixedTw",
               "../zaicoregister/zr_cache.json"
@@ -59,13 +65,27 @@
             "type": "node",
             "request": "launch",
             "name": "CsvEdit",
-            "program": "${workspaceFolder}/build/index.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js",
             "env": {
               "FDKCACHEEDIT_OUTPUTORG": "1"
             },
             "args": [
               "CsvEdit",
               "./cache.json"
+            ]
+        }, {
+            "type": "node",
+            "request": "launch",
+            "name": "FixTitle",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/babel-node",
+            "program": "${workspaceFolder}/src/index.js",
+            "env": {
+              "FDKCACHEEDIT_OUTPUTORG": "1"
+            },
+            "args": [
+              "FixTitle",
+              "zr_cache.json"
             ]
         }
     ]

@@ -8,6 +8,7 @@ import { DeleteNullItems, DeleteNullItemsNotUpdated } from './DeleteItems';
 import CountMinusByExpiryDate from './CountMinusByExpiryDate';
 import DateNormalize from './DateNormalize';
 import FixedTw from './FixedTw';
+import FixTitle from './FixTitle';
 import EditAll from './EditAll';
 
 export const editors = {
@@ -22,6 +23,7 @@ export const editors = {
   CountMinusByExpiryDate,
   FixedTw,
   DateNormalize,
+  FixTitle,
 };
 
 export const Edit = EditAll;
